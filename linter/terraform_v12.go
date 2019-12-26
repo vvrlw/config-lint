@@ -68,21 +68,6 @@ func loadHCLv2(filename string) (Terraform12LoadResult, error) {
 
 	fmt.Printf("JSON ENCODED STRING:\n %v\n", string(hcl2JSONEncoding))
 
-	// var v interface{}
-	// err = json.Unmarshal(hcl2JSONEncoding, &v)
-	// if err != nil {
-	// 	fmt.Println("ERROR:")
-	// 	fmt.Println(err)
-	// }
-
-	// jsonData, err := json.MarshalIndent(v, "", "  ")
-	// if err != nil {
-	// 	fmt.Printf("ERROR:\n %v\n", err)
-	// }
-	// fmt.Println("-----------------------------------------------------------")
-	// fmt.Printf("JSON DATA STRING:\n %v\n", string(jsonData))
-	// fmt.Println("-----------------------------------------------------------")
-
 	var hclData interface{}
 	err = yaml.Unmarshal(hcl2JSONEncoding, &hclData)
 	if err != nil {
