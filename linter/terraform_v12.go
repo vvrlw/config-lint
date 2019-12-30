@@ -1,7 +1,10 @@
 package linter
 
 import (
+	"fmt"
 	"github.com/hashicorp/hcl/v2/hclparse"
+	"github.com/zclconf/go-cty/cty"
+
 	//"github.com/ghodss/yaml"
 	"github.com/stelligent/config-lint/assertion"
 
@@ -53,29 +56,84 @@ func loadHCLv2(filename string) (Terraform12LoadResult, error) {
 	}
 
 	var file *hcl.File
+
 	parser := hclparse.NewParser()
 	file, _ = parser.ParseHCLFile(filename)
-	content, _ := file.Body.Content(terraformSchema)
-	resourceBlocks := content.Blocks.OfType("resource")
-	//TODO: Only getting the first resource Block here, almost certainly need to recurse
-	resource := assertion.Resource{
-		ID:         resourceBlocks[0].Labels[0],
-		Type:       resourceBlocks[0].Type,
-		Category:   "",
-		Filename:   filename,
-		LineNumber: 0,
+	_, diags := file.Body.Content(terraformSchema)
+	if diags != nil {
+		fmt.Printf("ERROR:\n %v\n", diags)
+		return result, diags
 	}
-	Variable{
-		Name:  "",
-		Value: nil,
+
+	// New custom parser
+	hcl2Parser := New()
+	hcl2FileBlocks, err := hcl2Parser.parseFile(file)
+	if err != nil {
+		fmt.Printf("ERROR: %v\n", err)
+		return result, err
+	}
+
+	var Vars map[string]cty.Value
+
+	// Returns (Blocks, *hcl.EvalContext)
+	hcl2Blocks, _ := hcl2Parser.buildEvaluationContext(hcl2FileBlocks, filename, Vars, true)
+
+	hcl2Resources := hcl2Blocks.OfType("resource")
+	for _, block := range hcl2Resources {
+		hcl2Resource := createResourceStruct(block, filename)
+		result.Resources = append(result.Resources, hcl2Resource)
+	}
+
+	hcl2Variables := hcl2Blocks.OfType("variable")
+	for _,block := range hcl2Variables{
+		hcl2Var := createVariableStruct(block)
+		result.Variables = append(result.Variables, hcl2Var)
+	}
+
+	//assertion.Debugf("LoadHCL Variables: %v\n", result.Variables)
+	return result, nil
+}
+
+func createVariableStruct(hcl2Variable *Block) Variable{
+	variable := Variable{
+		Name : hcl2Variable.Labels()[0],
 	}
 	props := make(map[string]interface{})
-	resource.Properties = props
-	props["ami"] = "ami-f2d3638a"
-	result.Resources = append(result.Resources, resource)
+	variable.Value = props
 
-	assertion.Debugf("LoadHCL Variables: %v\n", result.Variables)
-	return result, nil
+	attributes := hcl2Variable.GetAttributes()
+	for _,b := range attributes{
+		attName :=  b.hclAttribute.Name
+		attValue := b.Value().AsString()
+		props[attName] = attValue
+	}
+	return variable
+}
+
+func createResourceStruct(hcl2Resource *Block, filename string) assertion.Resource{
+	resource := assertion.Resource{
+		Category:   hcl2Resource.Type(),
+		Type:       hcl2Resource.Labels()[0],
+		ID:         hcl2Resource.Labels()[1],
+		Filename:   filename,
+		LineNumber: hcl2Resource.Range().StartLine,
+	}
+	props := make(map[string]interface{})
+	// nestedProps := make(map[string]interface{})
+	resource.Properties = props
+	atts := hcl2Resource.GetAttributes()
+	for _, b := range atts {
+		if b.Type().IsObjectType(){
+			attName := b.Name()
+			attValue := b.Value().AsValueMap()
+			props[attName] = attValue
+		} else{
+			attName := b.Name()
+			attValue := b.Value().AsString()
+			props[attName] = attValue
+		}
+	}
+	return resource
 }
 
 // PostLoad resolves variable expressions
