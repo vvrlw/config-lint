@@ -41,8 +41,11 @@ deps:
 gen:
 	echo "=== generating ==="
 	env
+	which go
+	ls -al /home/runner/
 	go get -v -u "github.com/gobuffalo/packr"
 	go get -v -u "github.com/gobuffalo/packr/..."
+	ls -al /home/runner/
 	ls -al /usr/local/go1.13
 	ls -al /usr/local/go1.13/bin
 	ls -al /usr/local/go1.13/pkg
