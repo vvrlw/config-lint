@@ -9,15 +9,24 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-16.04
-    container: golang:1.12
+    runs-on: ubuntu-latest
+    # container: golang:1.12
     steps:
-      - uses: actions/checkout@master
-      - name: dependencies
+      -
+        uses: actions/checkout@master
+      -
+        name: Setup Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: '1.12'
+      -
+        name: dependencies
         run: go mod download
-      - name: make test
+      -  
+        name: make test
         run: make test
-      - name: testing docker
+      -
+        name: testing docker
         run: docker ps
       - 
         name: docker release
