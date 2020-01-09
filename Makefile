@@ -46,6 +46,8 @@ gen:
 	ls -al /opt/hostedtoolcache/go/1.13.5/x64/
 	ls -al /usr/local/go1.13
 	ls -al /usr/local/go1.13/bin
+	ls -al /usr/local/go1.13/pkg
+	ls -al /usr/local/go1.13/src
 	go get -v "github.com/gobuffalo/packr/..."
 	go generate -x ./...
 
