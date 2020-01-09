@@ -42,7 +42,7 @@ gen:
 	echo "=== generating ==="
 	# export GOPATH=/home/runner/go
 	# export PATH="\$PATH:\$GOPATH/bin"
-	# env
+	env
 	# which go
 	# ls -al /home/runner/go/
 	# go get -v -u "github.com/gobuffalo/packr"

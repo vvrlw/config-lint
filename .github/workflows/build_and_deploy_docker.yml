@@ -19,14 +19,11 @@ jobs:
         uses: actions/setup-go@v1
         with:
           go-version: '1.13'
+      -
+        name: set Go PATH
         run: |
           export GOPATH=/home/runner/go
           export PATH="$PATH:$GOPATH/bin"
-      # -
-      #   name: set Go PATH
-      #   run: |
-      #     export GOPATH=/home/runner/go
-      #     export PATH="$PATH:$GOPATH/bin"
       -
         name: dependencies
         run: go mod download
