@@ -40,12 +40,15 @@ deps:
 
 gen:
 	echo "=== generating ==="
+	export GOPATH=/home/runner/go
+	export PATH="$PATH:$GOPATH/bin"
 	env
 	which go
 	ls -al /home/runner/go/
 	go get -v -u "github.com/gobuffalo/packr"
 	go get -v -u "github.com/gobuffalo/packr/..."
 	ls -al /home/runner/go/
+	ls -al /home/runner/go/bin/
 	ls -al /usr/local/go1.13
 	ls -al /usr/local/go1.13/bin
 	ls -al /usr/local/go1.13/pkg
