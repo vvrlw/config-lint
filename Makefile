@@ -41,7 +41,7 @@ deps:
 gen:
 	echo "=== generating ==="
 	go get -v "github.com/gobuffalo/packr/..."
-	go generate -v ./...
+	go generate -x ./...
 
 lint: gen
 	echo "=== linting ==="
