@@ -41,6 +41,9 @@ deps:
 gen:
 	echo "=== generating ==="
 	env
+	ls -al /opt/hostedtoolcache/go/1.13.5/x64/bin/
+	ls -al /opt/hostedtoolcache/go/1.13.5/x64/
+	ls -al /usr/local/go1.13
 	go get -v "github.com/gobuffalo/packr/..."
 	go generate -x ./...
 
