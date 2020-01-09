@@ -42,13 +42,13 @@ gen:
 	echo "=== generating ==="
 	env
 	go get -v "github.com/gobuffalo/packr/..."
-	ls -al /opt/hostedtoolcache/go/1.13.5/x64/src/
-	ls -al /opt/hostedtoolcache/go/1.13.5/x64/bin/
-	ls -al /opt/hostedtoolcache/go/1.13.5/x64/
 	ls -al /usr/local/go1.13
 	ls -al /usr/local/go1.13/bin
 	ls -al /usr/local/go1.13/pkg
 	ls -al /usr/local/go1.13/src
+	ls -al /opt/hostedtoolcache/go/1.13.6/x64/src/
+	ls -al /opt/hostedtoolcache/go/1.13.6/x64/bin/
+	ls -al /opt/hostedtoolcache/go/1.13.6/x64/
 	go generate -x ./...
 
 lint: gen
