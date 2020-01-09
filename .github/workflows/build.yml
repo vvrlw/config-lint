@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - '**'
+      - '!feature/deploy_to_dockerhub_issue_34'
     tags-ignore:
       - '**'
 
