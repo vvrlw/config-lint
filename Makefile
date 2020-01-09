@@ -40,8 +40,8 @@ deps:
 
 gen:
 	echo "=== generating ==="
-	export GOPATH=/home/runner/go
-	export PATH="\$PATH:\$GOPATH/bin"
+	# export GOPATH=/home/runner/go
+	# export PATH="\$PATH:\$GOPATH/bin"
 	env
 	which go
 	ls -al /home/runner/go/

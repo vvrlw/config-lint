@@ -25,6 +25,9 @@ jobs:
       -  
         name: make test
         run: make test
+        env:
+          GOPATH: /home/runner/go
+          PATH: "$PATH:$GOPATH/bin"
       -
         name: testing docker
         run: docker ps
