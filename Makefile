@@ -39,15 +39,15 @@ deps:
 	go mod download
 
 gen:
-	@echo "=== generating ==="
-	@go get "github.com/gobuffalo/packr/..."
-	@go generate ./...
+	echo "=== generating ==="
+	go get "github.com/gobuffalo/packr/..."
+	go generate ./...
 
 lint: gen
-	@echo "=== linting ==="
-	@go vet ./...
-	@go get -u golang.org/x/lint/golint
-	@golint $(go list ./... | grep -v /vendor/)
+	echo "=== linting ==="
+	go vet ./...
+	go get -u golang.org/x/lint/golint
+	golint $(go list ./... | grep -v /vendor/)
 
 cyclo:
 	@echo "=== cyclomatic complexity ==="
