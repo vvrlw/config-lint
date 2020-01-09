@@ -37,10 +37,10 @@ jobs:
       -
         name: testing docker
         run: docker ps
-      # - 
-      #   name: docker release
-      #   uses: goreleaser/goreleaser-action@v1
-      #   with:
-      #     args: release --skip-validate --skip-publish --config=.docker-goreleaser.yml
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.goreleaser }}
+      - 
+        name: docker release
+        uses: goreleaser/goreleaser-action@v1
+        with:
+          args: release --skip-validate --skip-publish --config=.docker-goreleaser.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.goreleaser }}
