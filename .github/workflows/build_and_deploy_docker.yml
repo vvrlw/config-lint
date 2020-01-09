@@ -2,8 +2,8 @@ name: Docker Build & Deploy
 
 on:
   push:
-    tags:
-      - '*.*-docker'
+    # tags:
+    #   - '*.*-docker'
     branches:
       - 'feature/deploy_to_dockerhub_issue_34'
 
