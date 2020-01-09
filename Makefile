@@ -40,6 +40,8 @@ deps:
 
 gen:
 	echo "=== generating ==="
+	echo $GOPATH
+	ls -al $GOPATH
 	go get -v "github.com/gobuffalo/packr/..."
 	go generate -x ./...
 
