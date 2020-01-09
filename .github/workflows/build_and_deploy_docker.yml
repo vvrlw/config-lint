@@ -18,8 +18,7 @@ jobs:
       - name: make test
         run: make test
       - name: testing docker
-        run: |
-          docker ps
+        run: docker ps
       - 
         name: docker release
         uses: goreleaser/goreleaser-action@v1
