@@ -50,10 +50,10 @@ gen:
 	ls -al /home/runner/
 	# ls -al /home/runner/go/
 	# ls -al /home/runner/go/bin/
-	ls -al /usr/local/go1.13
-	ls -al /usr/local/go1.13/bin
-	ls -al /usr/local/go1.13/pkg
-	ls -al /usr/local/go1.13/src
+	ls -al /usr/local/go1.12
+	ls -al /usr/local/go1.12/bin
+	ls -al /usr/local/go1.12/pkg
+	ls -al /usr/local/go1.12/src
 	# ls -al /opt/hostedtoolcache/go/1.13.6/x64/src/
 	# ls -al /opt/hostedtoolcache/go/1.13.6/x64/bin/
 	# ls -al /opt/hostedtoolcache/go/1.13.6/x64/

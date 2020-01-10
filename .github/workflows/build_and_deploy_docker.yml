@@ -29,17 +29,17 @@ jobs:
         run: |
           which go
           go version
-          ls -al /usr/local/go1.13/
-          ls -al /usr/local/go1.13/pkg/
-          ls -al /usr/local/go1.13/src/
+          ls -al /usr/local/go1.12/
+          ls -al /usr/local/go1.12/pkg/
+          ls -al /usr/local/go1.12/src/
           ls -al /home/runner/
           go mod download
       -  
         name: make test
         run: |
           make test
-          ls -al /usr/local/go1.13/pkg/
-          ls -al /usr/local/go1.13/src/
+          ls -al /usr/local/go1.12/pkg/
+          ls -al /usr/local/go1.12/src/
           ls -al /home/runner/
       # - 
       #   name: docker release
