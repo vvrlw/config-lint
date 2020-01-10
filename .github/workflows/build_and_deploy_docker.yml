@@ -14,11 +14,11 @@ jobs:
     steps:
       -
         uses: actions/checkout@master
-      -
-        name: Setup Go
-        uses: actions/setup-go@v1
-        with:
-          go-version: '1.13'
+      # -
+      #   name: Setup Go # is this needed? can we just use the default installed go version from the ubuntu-latest image?
+      #   uses: actions/setup-go@v1
+      #   with:
+      #     go-version: '1.13'
       # -
       #   name: set Go PATH
       #   run: |
@@ -26,7 +26,11 @@ jobs:
       #     export PATH="$PATH:$GOPATH/bin"
       -
         name: dependencies
-        run: go mod download
+        run: |
+          which go
+          ls -al /opt/hostedtoolcache/go/1.13.6/x64/
+          ls -al /opt/hostedtoolcache/go/1.13.6/x64/bin/
+          go mod download
       -  
         name: make test
         # run: make test
@@ -34,6 +38,8 @@ jobs:
           export GOPATH=/home/runner/go
           export PATH="$PATH:$GOPATH/bin"
           make test
+          ls -al /opt/hostedtoolcache/go/1.13.6/x64/
+          ls -al /opt/hostedtoolcache/go/1.13.6/x64/bin/
       # -
       #   name: testing docker
       #   run: docker ps
