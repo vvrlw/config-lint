@@ -29,6 +29,9 @@ jobs:
         run: |
           which go
           ls -al /usr/local/go1.13/
+          ls -al /usr/local/go1.13/pkg/
+          ls -al /usr/local/go1.13/src/
+          ls -al /home/runner/
           go mod download
       # -  
       #   name: make test
