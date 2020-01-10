@@ -28,7 +28,7 @@ jobs:
         name: dependencies
         run: |
           which go
-          ls -al /usr/local/
+          ls -al /usr/local/go1.13/
           go mod download
       # -  
       #   name: make test
