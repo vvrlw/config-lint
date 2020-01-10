@@ -28,8 +28,7 @@ jobs:
         name: dependencies
         run: |
           which go
-          ls -al /opt/hostedtoolcache/go/1.13.6/x64/
-          ls -al /opt/hostedtoolcache/go/1.13.6/x64/bin/
+          ls -al /opt/hostedtoolcache/go/
           go mod download
       -  
         name: make test
