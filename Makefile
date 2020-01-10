@@ -39,31 +39,15 @@ deps:
 	go mod download
 
 gen:
-	echo "=== generating ==="
-	# export GOPATH=/home/runner/go
-	# export PATH="\$PATH:\$GOPATH/bin"
-	env
-	# which go
-	# ls -al /home/runner/go/
-	# go get -v -u "github.com/gobuffalo/packr"
-	go get -v -u "github.com/gobuffalo/packr/..."
-	ls -al /home/runner/
-	# ls -al /home/runner/go/
-	# ls -al /home/runner/go/bin/
-	ls -al /usr/local/go1.12
-	ls -al /usr/local/go1.12/bin
-	ls -al /usr/local/go1.12/pkg
-	ls -al /usr/local/go1.12/src
-	# ls -al /opt/hostedtoolcache/go/1.13.6/x64/src/
-	# ls -al /opt/hostedtoolcache/go/1.13.6/x64/bin/
-	# ls -al /opt/hostedtoolcache/go/1.13.6/x64/
-	go generate -x ./...
+	@echo "=== generating ==="
+	@go get -u "github.com/gobuffalo/packr/..."
+	@go generate ./...
 
 lint: gen
-	echo "=== linting ==="
-	go vet ./...
-	go get -u golang.org/x/lint/golint
-	golint $(go list ./... | grep -v /vendor/)
+	@echo "=== linting ==="
+	@go vet ./...
+	@go get -u golang.org/x/lint/golint
+	@golint $(go list ./... | grep -v /vendor/)
 
 cyclo:
 	@echo "=== cyclomatic complexity ==="

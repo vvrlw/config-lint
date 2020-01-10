@@ -2,49 +2,36 @@ name: Docker Build & Deploy
 
 on:
   push:
-    # tags:
-    #   - '*.*-docker'
-    branches:
-      - 'feature/deploy_to_dockerhub_issue_34'
+    tags:
+      - '*.*-docker'
+    # branches:
+    #   - 'feature/deploy_to_dockerhub_issue_34'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    # container: golang:1.13
     steps:
       -
         uses: actions/checkout@master
-      # -
-      #   name: Setup Go # is this needed? can we just use the default installed go version from the ubuntu-latest image?
-      #   uses: actions/setup-go@v1
-      #   with:
-      #     go-version: '1.13'
-      # -
-      #   name: set Go PATH
-      #   run: |
-      #     export GOPATH=/home/runner/go
-      #     export PATH="$PATH:$GOPATH/bin"
+      -
+        name: Setup Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: '1.13'
       -
         name: dependencies
         run: |
-          which go
-          go version
-          ls -al /usr/local/go1.12/
-          ls -al /usr/local/go1.12/pkg/
-          ls -al /usr/local/go1.12/src/
-          ls -al /home/runner/
           go mod download
       -  
         name: make test
         run: |
+          export GOPATH=/home/runner/go
+          export PATH="$PATH:$GOPATH/bin"
           make test
-          ls -al /usr/local/go1.12/pkg/
-          ls -al /usr/local/go1.12/src/
-          ls -al /home/runner/
-      # - 
-      #   name: docker release
-      #   uses: goreleaser/goreleaser-action@v1
-      #   with:
-      #     args: release --skip-validate --skip-publish --config=.docker-goreleaser.yml
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.goreleaser }}
+      - 
+        name: docker release
+        uses: goreleaser/goreleaser-action@v1
+        with:
+          args: release --skip-validate --skip-publish --config=.docker-goreleaser.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.goreleaser }}
