@@ -33,14 +33,13 @@ jobs:
           ls -al /usr/local/go1.13/src/
           ls -al /home/runner/
           go mod download
-      # -  
-      #   name: make test
-      #   run: |
-      #     export GOPATH=/home/runner/go
-      #     export PATH="$PATH:$GOPATH/bin"
-      #     make test
-      #     ls -al /opt/hostedtoolcache/go/1.13.6/x64/
-      #     ls -al /opt/hostedtoolcache/go/1.13.6/x64/bin/
+      -  
+        name: make test
+        run: |
+          make test
+          ls -al /usr/local/go1.13/pkg/
+          ls -al /usr/local/go1.13/src/
+          ls -al /home/runner/
       # - 
       #   name: docker release
       #   uses: goreleaser/goreleaser-action@v1
