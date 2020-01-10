@@ -28,24 +28,20 @@ jobs:
         name: dependencies
         run: |
           which go
-          find . -name go
+          ls -al /usr/local/
           go mod download
-      -  
-        name: make test
-        # run: make test
-        run: |
-          export GOPATH=/home/runner/go
-          export PATH="$PATH:$GOPATH/bin"
-          make test
-          ls -al /opt/hostedtoolcache/go/1.13.6/x64/
-          ls -al /opt/hostedtoolcache/go/1.13.6/x64/bin/
-      # -
-      #   name: testing docker
-      #   run: docker ps
-      - 
-        name: docker release
-        uses: goreleaser/goreleaser-action@v1
-        with:
-          args: release --skip-validate --skip-publish --config=.docker-goreleaser.yml
-        env:
-          GITHUB_TOKEN: ${{ secrets.goreleaser }}
+      # -  
+      #   name: make test
+      #   run: |
+      #     export GOPATH=/home/runner/go
+      #     export PATH="$PATH:$GOPATH/bin"
+      #     make test
+      #     ls -al /opt/hostedtoolcache/go/1.13.6/x64/
+      #     ls -al /opt/hostedtoolcache/go/1.13.6/x64/bin/
+      # - 
+      #   name: docker release
+      #   uses: goreleaser/goreleaser-action@v1
+      #   with:
+      #     args: release --skip-validate --skip-publish --config=.docker-goreleaser.yml
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.goreleaser }}
