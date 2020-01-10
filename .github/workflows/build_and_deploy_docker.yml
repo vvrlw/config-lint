@@ -28,7 +28,7 @@ jobs:
         name: dependencies
         run: |
           which go
-          ls -al /opt/hostedtoolcache/go/
+          find . -name go
           go mod download
       -  
         name: make test
