@@ -24,9 +24,13 @@ jobs:
           go mod download
       -  
         name: make test
+        env:
+          DOCKER_USER: ${{ secrets.docker_user }}
+          DOCKER_PASSWORD: ${{ secrets.docker_password }}
         run: |
           export GOPATH=/home/runner/go
           export PATH="$PATH:$GOPATH/bin"
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
           make test
       - 
         name: docker release
