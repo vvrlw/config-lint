@@ -28,6 +28,7 @@ jobs:
         name: dependencies
         run: |
           which go
+          go version
           ls -al /usr/local/go1.13/
           ls -al /usr/local/go1.13/pkg/
           ls -al /usr/local/go1.13/src/
