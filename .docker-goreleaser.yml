@@ -36,11 +36,10 @@ changelog:
 #        email: goreleaser@stelligent.com
 #      folder: Formula
 dockers:
-  - image_templates:
-    # - stelligent/config-lint
+  - 
+    dockerfile: .dockerhub/Dockerfile
+    image_templates:
     - "stelligent/config-lint:{{ .Tag }}"
-    # - "stelligent/config-lint:v{{ .Major }}"
-    # - "stelligent/config-lint:v{{ .Major }}.{{ .Minor }}"
     - "stelligent/config-lint:latest"
 release:
   prerelease: auto
